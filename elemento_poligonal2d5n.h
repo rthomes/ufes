@@ -10,7 +10,7 @@ class elpol2D5N : public elpol2d
 {
 private:
 	const static int nno = 5;  //Numero de nos
-	//const static int ptg = 3;  //Numero de Pontos de Gauss nas diferentes direcoes
+	const static int ptg = 16;
 public:
     #ifdef ALEATORIO
    class aleatorio *yg;
@@ -20,8 +20,10 @@ public:
 	elpol2D5N();
 	~elpol2D5N();
 
+	int qptg();
 	int qnno();
 	void funcao_Forma(double, double, double*, double*);
+	void pontos_de_gauss(int, double*, double*, double*);
 };
 
 #endif

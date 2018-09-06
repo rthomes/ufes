@@ -21,8 +21,8 @@ public:
 	elpol2d(int);
 	~elpol2d();
 
-	int qptg();
-	void pontos_de_gauss(int, double*, double*, double*);
+	virtual int qptg();
+	virtual void pontos_de_gauss(int, double*, double*, double*);
 	void monta_rigidez();
 	void monta_n();
 	virtual void funcao_Forma(double r, double s, double *N, double *dn) = 0;
