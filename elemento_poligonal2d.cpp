@@ -19,20 +19,16 @@
 ***************************************************************************/
 #include "elemento_poligonal2d.h"
 
-elpol2d::elpol2d(int nno)
+elpol2d::elpol2d(int nno, int ptg)
 : isop2d(nno, ptg, 1)
 {
-	rpg = new double[qptg()];
-	spg = new double[qptg()];
-	wpg = new double[qptg()];
+	rpg = new double[ptg];
+	spg = new double[ptg];
+	wpg = new double[ptg];
 }
 
 elpol2d::~elpol2d()
 {
-}
-
-int elpol2d::qptg(){
-	return ptg;
 }
 
 void elpol2d::pontos_de_gauss(const int p, double *r, double *s, double *w) {

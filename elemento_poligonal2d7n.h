@@ -29,6 +29,7 @@ class elpol2D7N : public elpol2d
 {
 private:
 	const static int nno = 7;  //Numero de nos
+	const static int ptg = 4;
 public:
 #ifdef ALEATORIO
 	class aleatorio *yg;
@@ -37,7 +38,8 @@ public:
 #endif
 	elpol2D7N();
 	~elpol2D7N();
-
+	
+	int qptg();
 	int qnno();
 	void funcao_Forma(double, double, double*, double*);
 };

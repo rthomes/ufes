@@ -20,7 +20,7 @@
 #include "elemento_poligonal2d6n.h"
 
 elpol2D6N::elpol2D6N()
-: elpol2d(nno)
+: elpol2d(nno, ptg)
 {
 }
 

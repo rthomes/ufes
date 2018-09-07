@@ -20,7 +20,7 @@
 #include "elemento_poligonal2d7n.h"
 
 elpol2D7N::elpol2D7N()
-: elpol2d(nno)
+: elpol2d(nno, ptg)
 {
 }
 
@@ -30,6 +30,10 @@ elpol2D7N::~elpol2D7N()
 
 int elpol2D7N::qnno(){
 	return nno;
+}
+
+int elpol2D7N::qptg(){
+	return ptg;
 }
 
 void elpol2D7N::funcao_Forma(double r, double s, double *N, double *dn){
