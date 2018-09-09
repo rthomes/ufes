@@ -75,3 +75,44 @@ void elemento2D4N::monta_n()
             dN[2*n+i]+=invJ[i][j]*dn[2*n+j];
    peso*=detJ;
 }
+
+// Funcao monta_n num ponto escolhido (r, s)
+void elemento2D4N::monta_n(double r, double s)
+{
+#ifdef ALEATORIO
+	aleatorio
+#else
+	double
+#endif
+		J[2][2], invJ[2][2], um = 1.0, quatro = 4.0;
+	for (int i = 0; i<2; i++)
+	for (int n = 0; n<4; n++)
+		dn[2 * n + i] = dN[2 * n + i] = 0.0;
+	N[0] = (um + r)*(um + s) / quatro;
+	N[1] = (um - r)*(um + s) / quatro;
+	N[2] = (um - r)*(um - s) / quatro;
+	N[3] = (um + r)*(um - s) / quatro;
+	dn[0] = (um + s) / quatro;
+	dn[1] = (um + r) / quatro;
+	dn[2] = -(um + s) / quatro;
+	dn[3] = (um - r) / quatro;
+	dn[4] = -(um - s) / quatro;
+	dn[5] = -(um - r) / quatro;
+	dn[6] = (um - s) / quatro;
+	dn[7] = -(um + r) / quatro;
+	J[0][0] = J[0][1] = J[1][0] = J[1][1] = 0.0;
+	for (int i = 0; i<2; i++)
+	for (int j = 0; j<2; j++)
+	for (int n = 0; n<4; n++)
+		J[i][j] += dn[2 * n + i] * this->pno[n]->qx(j);
+	detJ = J[0][0] * J[1][1] - J[1][0] * J[0][1];
+	invJ[0][0] = J[1][1] / detJ;
+	invJ[1][1] = J[0][0] / detJ;
+	invJ[0][1] = -J[0][1] / detJ;
+	invJ[1][0] = -J[1][0] / detJ;
+	for (int i = 0; i<2; i++)
+	for (int j = 0; j<2; j++)
+	for (int n = 0; n<4; n++)
+		dN[2 * n + i] += invJ[i][j] * dn[2 * n + j];
+	peso = detJ;
+}

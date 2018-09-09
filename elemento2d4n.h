@@ -37,6 +37,7 @@ public:
    int qnno(){return(nno);};
    int qptg(){return(ptg);};
    void monta_n();
+   void monta_n(double, double);
 };
 
 #endif
