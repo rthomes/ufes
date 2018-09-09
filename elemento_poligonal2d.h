@@ -10,10 +10,10 @@ private:
 public:
 #ifdef ALEATORIO
 	class aleatorio *yg;
-	void p_processa(aleatorio*);
+	//void p_processa(aleatorio*);
 #else
 	double *yg;
-	void p_processa(double*);
+	//void p_processa(double*);
 #endif
 	double *rpg, *spg, *wpg;
 
@@ -25,6 +25,7 @@ public:
 	void pontos_de_gauss(int, double*, double*, double*);
 	void monta_rigidez();
 	void monta_n();
+	void monta_n(double, double);
 	virtual void funcao_Forma(double r, double s, double *N, double *dn) = 0;
 	int tri;
 };
