@@ -99,6 +99,17 @@ void isop2d::monta_b()
       b[(2*i)+1]=b[2*(qnno()+i)]=0.0;
    }
 };
+
+void isop2d::monta_b(double r, double s)
+{
+	monta_n(r, s);
+	for (int i = 0; i<qnno(); i++)
+	{
+		b[(2 * i)] = b[4 * qnno() + 2 * i + 1] = dN[i * 2];
+		b[2 * (qnno() + i) + 1] = b[4 * qnno() + 2 * i] = dN[i * 2 + 1];
+		b[(2 * i) + 1] = b[2 * (qnno() + i)] = 0.0;
+	}
+};
 void isop2d::monta_c()
 {
 #ifdef ALEATORIO
@@ -182,36 +193,19 @@ void isop2d::p_processa(double *xx) // Sobrecarga de elemento
 		ptm[i] = ptm[i] / qnno();	// Media aritimetica
 	}
 	////////////////////////////////
-	for (pg = 0; pg<lpg; pg++)
-	{
-		monta_b();
-		// Calculo das coordenados dos pontos de Gauss no dominio "real"
-		ptx[pg] = pty[pg] = 0;		
-		for (int n = 0; n < qnno(); n++){
-			ptx[pg] += N[n] * pno[n]->qx(0); 
-			pty[pg] += N[n] * pno[n]->qx(1);
-		}
-		//
+		monta_b(0, 0); // Monta b para o ponto (0,0) no elemento referencia
 		for (int i = 0; i<qnlb(); i++)
 		{
-			def[pg*qnlb() + i] = ten[pg*qnlb() + i] = 0;
+			def[i] = ten[i] = 0;
 			for (int j = 0; j<qnno()*qipn(); j++)
-				def[pg*qnlb() + i] += b[i*qnno()*qipn() + j] * x[j];
+				def[i] += b[i*qnno()*qipn() + j] * x[j];
 		}
 		monta_c();
 		for (int i = 0; i<qnlb(); i++)
 		{
 			for (int j = 0; j<qnlb(); j++)
-				ten[pg*qnlb() + i] += c[i*qnlb() + j] * def[pg*qnlb() + j];
+				ten[i] += c[i*qnlb() + j] * def[j];
 		}
-	}
-	// Tensao media
-	for (int i = 0; i < qnlb(); i++){
-	tenM[i] = 0;
-	for (pg = 0; pg < lpg; pg++)
-		tenM[i] += ten[pg*qnlb() + i];
-	tenM[i] = tenM[i] / lpg;
-	}
 };
 
 /* Em diferentes */

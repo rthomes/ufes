@@ -59,6 +59,7 @@ virtual int qptg()=0;
 #endif
    void monta_rigidez();
    void monta_b();
+   void monta_b(double, double);
    void monta_c();
    void monta_massa(){};
    void p_processa(double*);

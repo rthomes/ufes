@@ -38,7 +38,6 @@ elemento::elemento(int dim, int ipn, int nno, int prp, int ptg, int nlb)
    dcn=0.0;
    pmaterial=NULL;
    ptm = new double[dim];
-   tenM = new double[nlb];
 #ifdef ALEATORIO
    prop=new class aleatorio[prp];
    k = new class aleatorio[nno*ipn*nno*ipn];
@@ -59,21 +58,16 @@ elemento::elemento(int dim, int ipn, int nno, int prp, int ptg, int nlb)
    {
       ten = new double[nlb*ptg];
       def = new double[nlb*ptg];
-	  ptx = new double[ptg];
    }
    else if (dim==2)
    {
       ten = new double[nlb*ptg*ptg];
       def = new double[nlb*ptg*ptg];
-	  ptx = new double[ptg*ptg];
-	  pty = new double[ptg*ptg];
    }
    else
    {
       ten = new double[nlb*ptg*ptg*ptg];
       def = new double[nlb*ptg*ptg*ptg];
-	  ptx = new double[ptg*ptg*ptg];
-	  pty = new double[ptg*ptg*ptg];
    }
 #endif
 };
@@ -92,7 +86,6 @@ elemento::elemento(int dim, int ipn, int nno, int prp, int ptg, int nlb, int pol
 	dcn = 0.0;
 	pmaterial = NULL;
 	ptm = new double[dim];
-	tenM = new double[nlb];
 #ifdef ALEATORIO
 	prop = new class aleatorio[prp];
 	k = new class aleatorio[nno*ipn*nno*ipn];
@@ -114,8 +107,6 @@ elemento::elemento(int dim, int ipn, int nno, int prp, int ptg, int nlb, int pol
 	{
 		ten = new double[nlb*ptg*nno];	// A diferenca está aqui
 		def = new double[nlb*ptg*nno];
-		ptx = new double[ptg*nno];
-		pty = new double[ptg*nno];
 	}
 	else
 	{
@@ -490,12 +481,11 @@ wxTextOutputStream& operator<<(wxTextOutputStream& co,elemento& e)
 	   co << e.ptm[i] << " ";
    // Tensao média
    for (int i = 0; i < e.qnlb(); i++)
-	   co << "\n  " << e.tenM[i];
+	   co << "\n  " << e.ten[i];
    co<<"\n  Deformacao calculada";
    for(int pg=0;pg<lpg;pg++)
    {
       co<<"\n    Ponto de Gauss "<<pg<<":";
-	  co << "\n      " << e.ptx[pg] << " " << e.pty[pg]; // Coordenadas do ponto
       for(int i=0;i<e.qnlb();i++)
          co<<"\n      Componente "<<i<<" = "<<e.def[pg*e.qnlb()+i];
    }
