@@ -104,9 +104,9 @@ public:
    virtual void monta_rigidez();
    void pontos_de_gauss(int, double*, double*);
    void monta_n();
-   virtual void monta_n(double, double) = 0;
+   virtual void monta_n(double, double);
    virtual void monta_b();
-   virtual void monta_b(double, double) = 0;
+   virtual void monta_b(double, double);
    virtual void monta_c();
    virtual void monta_massa();
 #ifdef ALEATORIO

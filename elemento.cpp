@@ -368,6 +368,8 @@ void elemento::pontos_de_gauss(const int p,double *x, double *w)
 };
 void elemento::monta_n(){};
 void elemento::monta_b(){};
+void elemento::monta_n(double r, double s){}; // Temporario, faze-la depois
+void elemento::monta_b(double r, double s){}; // Temporario, faze-la depois
 void elemento::monta_massa(){};
 void elemento::monta_c(){};
 #ifdef ALEATORIO
