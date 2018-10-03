@@ -24,8 +24,8 @@ public:
 	virtual int qptg() = 0;
 	virtual int qptg_tot() = 0; // Adicionado por Renan
 	virtual void pontos_de_gauss(int, double*, double*, double*);
-	void monta_rigidez();
-	void monta_n();
+	virtual void monta_rigidez();
+	virtual void monta_n();
 	virtual void funcao_Forma(double r, double s, double *N, double *dn) = 0;
 	int tri;
 };
