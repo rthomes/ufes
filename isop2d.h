@@ -50,6 +50,7 @@ public:
 virtual int qnno()=0;
    int qprp(){return(prp);};
 virtual int qptg()=0;
+virtual int qptg_tot() = 0; // Adicionado por Renan
    int qnlb(){return(nlb);};
    double qvol(){return(peso*prop[0]);};
 #ifdef ALEATORIO

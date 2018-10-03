@@ -22,6 +22,7 @@ public:
 	~elpol2d();
 
 	virtual int qptg() = 0;
+	virtual int qptg_tot() = 0; // Adicionado por Renan
 	virtual void pontos_de_gauss(int, double*, double*, double*);
 	void monta_rigidez();
 	void monta_n();

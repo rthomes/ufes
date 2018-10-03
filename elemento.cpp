@@ -478,7 +478,7 @@ wxTextOutputStream& operator<<(wxTextOutputStream& co,elemento& e)
 {
    int lpg;
    if (e.poli)
-	   lpg = e.qptg()*e.qnno(); // Para elemento poligonal
+	   lpg = e.qptg_tot(); // Para elemento poligonal
    else{
 	   lpg = e.qptg();
 	   if (e.qdim() == 2) lpg *= lpg;
