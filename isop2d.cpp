@@ -56,8 +56,8 @@ wg- pesos de Gauss associados aos pontos
 };
 
 // ADICIONADO POR RENAN, temporario. Para avisar que e poligonal
-isop2d::isop2d(int nno, int ptg, int poli)
-: elemento(dim, ipn, nno, prp, ptg, nlb, poli)
+isop2d::isop2d(int nno, int ptg, int ptg_tot, int poli)
+: elemento(dim, ipn, nno, prp, ptg, ptg_tot, nlb, poli)
 {
 	// poli: quando existente (= 1) indica que o elemento é poligonal
 

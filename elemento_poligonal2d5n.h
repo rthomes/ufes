@@ -11,6 +11,7 @@ class elpol2D5N : public elpol2d
 private:
 	const static int nno = 5;  //Numero de nos
 	const static int ptg = 16;
+	const static int ptg_tot = ptg * nno;
 public:
     #ifdef ALEATORIO
    class aleatorio *yg;
@@ -22,6 +23,7 @@ public:
 
 	int qptg();
 	int qnno();
+	int qptg_tot();
 	void funcao_Forma(double, double, double*, double*);
 	void pontos_de_gauss(int, double*, double*, double*);
 };

@@ -85,7 +85,7 @@ elemento::elemento(int dim, int ipn, int nno, int prp, int ptg, int nlb)
 };
 
 // Adicionado por Renan
-elemento::elemento(int dim, int ipn, int nno, int prp, int ptg, int nlb, int poli)
+elemento::elemento(int dim, int ipn, int nno, int prp, int ptg, int ptg_tot, int nlb, int poli)
 {
 	// poli: quando existente (= 1) indica que o elemento é poligonal 2d
 	this->poli = 1;
@@ -118,12 +118,12 @@ elemento::elemento(int dim, int ipn, int nno, int prp, int ptg, int nlb, int pol
 	
 	if (dim == 2)
 	{
-		ten = new double[nlb*ptg*nno];	// A diferenca está aqui
-		def = new double[nlb*ptg*nno];
-		ptx = new double[ptg*nno];
-		pty = new double[ptg*nno];
-		Peso = new double[ptg*nno];
-		des = new double[ptg*nno*dim];
+		ten = new double[nlb*ptg_tot];	// A diferenca está aqui
+		def = new double[nlb*ptg_tot];
+		ptx = new double[ptg_tot];
+		pty = new double[ptg_tot];
+		Peso = new double[ptg_tot];
+		des = new double[ptg_tot*dim];
 	}
 	else
 	{

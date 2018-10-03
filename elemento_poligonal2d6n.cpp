@@ -20,7 +20,7 @@
 #include "elemento_poligonal2d6n.h"
 
 elpol2D6N::elpol2D6N()
-: elpol2d(nno, ptg)
+: elpol2d(nno, ptg, ptg_tot)
 {
 }
 
@@ -34,6 +34,10 @@ int elpol2D6N::qptg(){
 
 int elpol2D6N::qnno(){
 	return nno;
+}
+
+int elpol2D6N::qptg_tot() {
+	return ptg_tot;
 }
 
 void elpol2D6N::pontos_de_gauss(const int p, double *r, double *s, double *w) {

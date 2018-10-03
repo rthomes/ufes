@@ -18,7 +18,7 @@ public:
 	double *rpg, *spg, *wpg;
 
 	elpol2d();
-	elpol2d(int, int);
+	elpol2d(int, int, int);
 	~elpol2d();
 
 	virtual int qptg() = 0;

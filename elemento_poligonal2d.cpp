@@ -19,8 +19,8 @@
 ***************************************************************************/
 #include "elemento_poligonal2d.h"
 
-elpol2d::elpol2d(int nno, int ptg)
-: isop2d(nno, ptg, 1)
+elpol2d::elpol2d(int nno, int ptg, int ptg_tot)
+: isop2d(nno, ptg, ptg_tot, 1)
 {
 	rpg = new double[ptg];
 	spg = new double[ptg];

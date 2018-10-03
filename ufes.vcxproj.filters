@@ -266,21 +266,6 @@
     <ClInclude Include="elemento_poligonal2d8n.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="elemento_poligonal2d_NC.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="elemento_poligonal2d5n_NC.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="elemento_poligonal2d6n_NC.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="elemento_poligonal2d7n_NC.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="elemento_poligonal2d8n_NC.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\..\..\..\..\wxWidgets-3.0.2\samples\sample.rc">

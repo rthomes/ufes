@@ -1,7 +1,7 @@
 #include "elemento_poligonal2d8n.h"
 
 elpol2D8N::elpol2D8N()
-: elpol2d(nno, ptg)
+: elpol2d(nno, ptg, ptg_tot)
 {
 }
 
@@ -15,6 +15,10 @@ int elpol2D8N::qnno(){
 
 int elpol2D8N::qptg(){
 	return ptg;
+}
+
+int elpol2D8N::qptg_tot() {
+	return ptg_tot;
 }
 
 void elpol2D8N::funcao_Forma(double r, double s, double *N, double *dn){
