@@ -323,68 +323,41 @@ void elpol2d::monta_n()
 #else
 	double
 #endif
-	// Inicializacao de variaveis ---
+		// Inicializacao de variaveis ----
 		r, s, J[2][2], invJ[2][2];
-	double r1[2], r2[2];
-	double detJ1;
-	const double pi = 3.14159265358979323846;
 	int i, j, n;
 	i = j = n = 0;
 	for (i = 0; i < 2; i++)
-	for (n = 0; n < qnno(); n++)
-		dn[2 * n + i] = dN[2 * n + i] = 0.0;
-	// -------------------------------
-
-	// Mudança de coordenadas dos pontos de Gauss. Coordenadas do triângulo
-	// padrao para o elemento padrao ----------------------------------------
-	// Pontos das extremidades do triangulo (coordenadas do elemento padrao)
-	for (i = 0; i < 2; i++){
-		r1[i] = cos(2 * pi*(tri + i + 1) / qnno());
-		r2[i] = sin(2 * pi*(tri + i + 1) / qnno());
-	}
-	detJ1 = r1[0] * r2[1] - r2[0] * r1[1];
-	// Esse determinante nao muda conforme o ponto de Gauss, so depende do triangulo
-
-	// Pontos de Gauss estão no sistema de coordenadas do triangulo,
-	//entao, ele sao transformados para o sistema de coordenadas do elemento.
-	// r e s: pontos de Gauss nas coordenadas do elemento.
-	r = r1[0] * rpg[pg] + r1[1] * spg[pg];
-	s = r2[0] * rpg[pg] + r2[1] * spg[pg];
+		for (n = 0; n < qnno(); n++)
+			dn[2 * n + i] = dN[2 * n + i] = 0.0;
+	// Pontos de Gauss ---------------
+	r = rpg[pg];
+	s = spg[pg];
 	peso = wpg[pg];
-	// -----------------------------------------------------------------------
 
 	// Calcula N e dn para os pontos r e s (geralmente, os pontos de Gauss nas coordenadas do elemento)
 	funcao_Forma(r, s, N, dn);
 
 	// Matriz Jacobiana e Jacobiano
 	J[0][0] = J[0][1] = J[1][0] = J[1][1] = 0.0;
-	for (i = 0; i < 2; i++){
-		for (j = 0; j < 2; j++){
-			for (n = 0; n < qnno(); n++){
+	for (i = 0; i < 2; i++) {
+		for (j = 0; j < 2; j++) {
+			for (n = 0; n < qnno(); n++) {
 				J[i][j] += dn[2 * n + i] * this->pno[n]->qx(j);
 			}
 		}
 	}
 	detJ = J[0][0] * J[1][1] - J[1][0] * J[0][1];
 
-	//if (detJ > 100 || detJ < 0.001){
-	//	ofstream myfile;
-	//	string str;
-	//	str = "Entradas e Saídas/Debug_" + to_string(qnno()) + "n.txt";
-	//	myfile.open(str);			
-	//	myfile << "detJ = " << detJ << "\npg = " << pg << "\ntri = " << tri;
-	//	myfile.close();
-	//}
-
 	invJ[0][0] = J[1][1] / detJ;
 	invJ[1][1] = J[0][0] / detJ;
 	invJ[0][1] = -J[0][1] / detJ;
 	invJ[1][0] = -J[1][0] / detJ;
 	for (i = 0; i < 2; i++)
-	for (j = 0; j < 2; j++)
-	for (n = 0; n < qnno(); n++)
-		dN[2 * n + i] += invJ[i][j] * dn[2 * n + j];
-	peso *= abs(detJ) * abs(detJ1);	// peso = peso * (detJ * detJ1)
+		for (j = 0; j < 2; j++)
+			for (n = 0; n < qnno(); n++)
+				dN[2 * n + i] += invJ[i][j] * dn[2 * n + j];
+	peso *= abs(detJ);	// peso = peso * (detJ)
 }
 
 void elpol2d::monta_rigidez()
@@ -399,23 +372,20 @@ void elpol2d::monta_rigidez()
 	yy = new double[qnno()];
 #endif
 	for (int i = 0; i<qnno()*qipn(); i++)
-	for (int j = 0; j<qnno()*qipn(); j++)
-		this->k[qnno()*qipn()*i + j] = 0.0;
+		for (int j = 0; j<qnno()*qipn(); j++)
+			this->k[qnno()*qipn()*i + j] = 0.0;
 	pontos_de_gauss(qptg(), rpg, spg, wpg);
-	for (tri = 0; tri < qnno(); tri++){	// Para cada triangulo dentro do elemento
-		for (pg = 0; pg < qptg(); pg++){
-			monta_b();
-			monta_c();
-			for (int i = 0; i < qnno()*qipn(); i++)
+	for (pg = 0; pg < qptg(); pg++) {
+		monta_b();
+		monta_c();
+		for (int i = 0; i < qnno()*qipn(); i++)
 			for (int j = 0; j < qnlb(); j++)
-			for (int l = 0; l < qnlb(); l++)
-			for (int m = 0; m < qnno()*qipn(); m++)
-				k[qnno()*qipn()*i + m] +=
-				b[qnno()*qipn()*j + i] * c[qnlb()*j + l] * b[qnno()*qipn()*l + m] * peso;
-		}
+				for (int l = 0; l < qnlb(); l++)
+					for (int m = 0; m < qnno()*qipn(); m++)
+						k[qnno()*qipn()*i + m] +=
+						b[qnno()*qipn()*j + i] * c[qnlb()*j + l] * b[qnno()*qipn()*l + m] * peso;
 	}
 };
-
 
 #ifdef ALEATORIO
 void elpol2d::p_processa(aleatorio *xx)
@@ -429,53 +399,51 @@ void elpol2d::p_processa(double *xx)
 	{
 		f[i] = 0.0;
 		for (int n = 0; n<qnno(); n++)
-		for (int j = 0; j<qipn(); j++)
-			f[j] += qk(i, n*qipn() + j)*xx[qno(n)*qipn() + j];
+			for (int j = 0; j<qipn(); j++)
+				f[j] += qk(i, n*qipn() + j)*xx[qno(n)*qipn() + j];
 	}
 	for (int n = 0; n<qnno(); n++)
-	for (int i = 0; i<qipn(); i++)
-		x[n*qipn() + i] = xx[qno(n)*qipn() + i];
+		for (int i = 0; i<qipn(); i++)
+			x[n*qipn() + i] = xx[qno(n)*qipn() + i];
 
 	// Calculo da area (Ae) e do centro (ptm) do elemento
 	area_centro();
 	// Zera tensao media
 	for (int i = 0; i < qnlb(); i++)
 		tenM[i] = 0;
-	for (tri = 0; tri < qnno(); tri++){
-		//for (pg = 0; pg < lpg; pg++)
-		for (pg = 0; pg < qptg(); pg++)
+	//for (pg = 0; pg < lpg; pg++)
+	for (pg = 0; pg < qptg(); pg++)
+	{
+		monta_b();
+		// Calculo das coordenados dos pontos de Gauss no dominio "real"
+		// e deslocamentos nos pontos de Gauss
+		Peso[pg] = peso;
+		ptx[pg] = pty[pg] = 0;
+		for (int i = 0; i < qipn(); i++)
+			des[pg*qipn() + i] = 0;
+		for (int n = 0; n < qnno(); n++) {
+			ptx[pg] += N[n] * pno[n]->qx(0);
+			pty[pg] += N[n] * pno[n]->qx(1);
+			des[pg*qipn()] += N[n] * x[n*qipn()];
+			des[pg*qipn() + 1] += N[n] * x[n*qipn() + 1];
+		}
+		//
+		for (int i = 0; i < qnlb(); i++)
 		{
-			monta_b();
-			// Calculo das coordenados dos pontos de Gauss no dominio "real"
-			// e deslocamentos nos pontos de Gauss
-			Peso[pg + tri*qptg()] = peso;
-			ptx[pg + tri*qptg()] = pty[pg + tri*qptg()] = 0;
-			for (int i = 0; i < qipn(); i++)
-				des[(pg + tri*qptg())*qipn() + i] = 0;
-			for (int n = 0; n < qnno(); n++){
-				ptx[pg + tri*qptg()] += N[n] * pno[n]->qx(0);
-				pty[pg + tri*qptg()] += N[n] * pno[n]->qx(1);
-				des[(pg + tri*qptg())*qipn()] += N[n] * x[n*qipn()];
-				des[(pg + tri*qptg())*qipn() + 1] += N[n] * x[n*qipn() + 1];
-			}
-			//
-			for (int i = 0; i < qnlb(); i++)
-			{
-				// Adicionei o  + tri*qptg()*qnlb() para computar os pontos de Gauss em cada triângulo
-				// para 3 pontos de Gauss por triangulo, um elemento de 5 nós terá 15 pontos de Gauss.
-				// Mas ainda falta escrever no arquivo de saída todos os pontos de Gauss.
-				def[pg*qnlb() + i + tri*qptg()*qnlb()] = ten[pg*qnlb() + i + tri*qptg()*qnlb()] = 0;
-				for (int j = 0; j < qnno()*qipn(); j++)
-					def[pg*qnlb() + i + tri*qptg()*qnlb()] += b[i*qnno()*qipn() + j] * x[j];
-			}
-			monta_c();
-			for (int i = 0; i < qnlb(); i++)
-			{
-				for (int j = 0; j < qnlb(); j++)
-					// Revisar se é def[...+j+...]
-					ten[pg*qnlb() + i + tri*qptg()*qnlb()] += c[i*qnlb() + j] * def[pg*qnlb() + j + tri*qptg()*qnlb()];
-				tenM[i] += ten[pg*qnlb() + i + tri*qptg()*qnlb()] * peso;
-			}
+			// Adicionei o  + tri*qptg()*qnlb() para computar os pontos de Gauss em cada triângulo
+			// para 3 pontos de Gauss por triangulo, um elemento de 5 nós terá 15 pontos de Gauss.
+			// Mas ainda falta escrever no arquivo de saída todos os pontos de Gauss.
+			def[pg*qnlb() + i] = ten[pg*qnlb() + i] = 0;
+			for (int j = 0; j < qnno()*qipn(); j++)
+				def[pg*qnlb() + i] += b[i*qnno()*qipn() + j] * x[j];
+		}
+		monta_c();
+		for (int i = 0; i < qnlb(); i++)
+		{
+			for (int j = 0; j < qnlb(); j++)
+				// Revisar se é def[...+j+...]
+				ten[pg*qnlb() + i] += c[i*qnlb() + j] * def[pg*qnlb() + j];
+			tenM[i] += ten[pg*qnlb() + i] * peso;
 		}
 	}
 	for (int i = 0; i < qnlb(); i++)

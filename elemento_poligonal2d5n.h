@@ -28,8 +28,6 @@ public:
 	int qptg_tot();
 	void funcao_Forma(double, double, double*, double*);
 	void pontos_de_gauss(int, double*, double*, double*);
-	void monta_rigidez();
-	void monta_n();
 };
 
 #endif
