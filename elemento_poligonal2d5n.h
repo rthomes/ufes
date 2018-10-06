@@ -15,10 +15,8 @@ private:
 public:
 #ifdef ALEATORIO
 	class aleatorio *yg;
-	void p_processa(aleatorio*);
 #else
 	double *yg;
-	void p_processa(double*);
 #endif
 	elpol2D5N();
 	~elpol2D5N();
