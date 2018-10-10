@@ -6,7 +6,7 @@
 class elpol2d : public isop2d
 {
 private:
-	const static int ptg = 12;
+	const static int ptg = 16; // Numero de pontos de Gauss TOTAL em cada sub-quadrado!
 public:
 #ifdef ALEATORIO
 	class aleatorio *yg;
@@ -15,14 +15,13 @@ public:
 	double *yg;
 	void p_processa(double*);
 #endif
-	double *rpg, *spg, *wpg;
+	double *xpg, *wpg;
 
 	elpol2d();
 	elpol2d(int);
 	~elpol2d();
 
 	int qptg();
-	void pontos_de_gauss(int, double*, double*, double*);
 	void monta_rigidez();
 	void monta_n();
 	virtual void funcao_Forma(double r, double s, double *N, double *dn) = 0;
