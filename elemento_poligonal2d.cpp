@@ -22,8 +22,7 @@
 elpol2d::elpol2d(int nno)
 : isop2d(nno, ptg, 1)
 {
-	rpg = new double[qptg()];
-	spg = new double[qptg()];
+	xpg = new double[qptg()];
 	wpg = new double[qptg()];
 }
 
@@ -60,10 +59,10 @@ void elpol2d::monta_n()
 	// Pontos das extremidades do quadrado (coordenadas do elemento padrao)
 	r1[1] = cos(2 * pi*(tri + 1) / qnno()); // Ponto do meio
 	r2[1] = sin(2 * pi*(tri + 1) / qnno());
-	r1[0] = (r1[0] + cos(2 * pi*tri / qnno())) / 2; // Ponto da direita
-	r2[0] = (r1[0] + sin(2 * pi*tri / qnno())) / 2;
-	r1[2] = (r1[0] + cos(2 * pi*(tri + 2) / qnno())) / 2; // Ponto da esquerda
-	r2[2] = (r1[0] + sin(2 * pi*(tri + 2) / qnno())) / 2;
+	r1[0] = (r1[1] + cos(2 * pi*tri / qnno())) / 2; // Ponto da direita
+	r2[0] = (r2[1] + sin(2 * pi*tri / qnno())) / 2;
+	r1[2] = (r1[1] + cos(2 * pi*(tri + 2) / qnno())) / 2; // Ponto da esquerda
+	r2[2] = (r2[1] + sin(2 * pi*(tri + 2) / qnno())) / 2;
 	r1[3] = r2[3] = 0; // Ponto central
 	// Truque para obter os pontos de Gauss no quadrado padrão
 	p = sqrt(qptg());

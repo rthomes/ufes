@@ -6,7 +6,7 @@
 class elpol2d : public isop2d
 {
 private:
-	const static int ptg = 16; // Numero de pontos de Gauss TOTAL em cada sub-quadrado!
+	const static int ptg = 4; // Numero de pontos de Gauss TOTAL em cada sub-quadrado!
 public:
 #ifdef ALEATORIO
 	class aleatorio *yg;
