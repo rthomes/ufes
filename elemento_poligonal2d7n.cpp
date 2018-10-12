@@ -43,6 +43,7 @@ int elpol2D7N::qptg_tot() {
 void elpol2D7N::pontos_de_gauss(const int p, double *r, double *s, double *w) {
 	// Pontos de Gauss-Legendre encontrados para heptagono
 	switch (p) {
+	case 4: // polinomio ordem 3
 		r[0] = 0.6255681659215563;
 		r[1] = -0.2142726536339368;
 		r[2] = -0.6255681659215564;
