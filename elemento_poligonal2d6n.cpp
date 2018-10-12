@@ -41,8 +41,22 @@ int elpol2D6N::qptg_tot() {
 }
 
 void elpol2D6N::pontos_de_gauss(const int p, double *r, double *s, double *w) {
+	// Pontos de Gauss-Legendre encontrados para o hexagono
 	switch (p){
-		// Pontos de Gauss-Legendre encontrados para o hexagono
+	case 4: // polinomio ordem 3
+		r[0] = 0.6106677068269424;
+		r[1] = -0.2091688755656304;
+		r[2] = -0.6106677068269424;
+		r[3] = 0.2091688755656305;
+		s[0] = 0.2091688755656305;
+		s[1] = 0.6106677068269424;
+		s[2] = -0.2091688755656305;
+		s[3] = -0.6106677068269424;
+		w[0] = 0.6495190528383290;
+		w[1] = 0.6495190528383290;
+		w[2] = 0.6495190528383290;
+		w[3] = 0.6495190528383290;
+		break;
 	case 15:
 		r[0] = 0.2433678800209670;
 		r[1] = -0.3638627911369946;
