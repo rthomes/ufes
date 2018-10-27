@@ -29,7 +29,7 @@ class elpol2D7N : public elpol2d
 {
 private:
 	const static int nno = 7;  //Numero de nos
-	const static int ptg = 7;
+	const static int ptg = 12;
 	const static int ptg_tot = ptg;
 public:
 #ifdef ALEATORIO
